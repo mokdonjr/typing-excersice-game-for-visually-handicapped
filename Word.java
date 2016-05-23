@@ -1,4 +1,19 @@
-//words.txt ÆÄÀÏÀ» ÀĞ°í ÆÄÀÏ¿¡¼­ ·£´ıÇÏ°Ô ´Ü¾î¸¦ ÃßÃâÇÏ´Â Å¬·¡½º
+//line2 ~ line13 ê¹Œì§€ ì½”ë“œë¥¼ TypingGame.javaì— ë„£ê³ ì‹¶ì€ë° ì•ˆë˜ë„¤..
+	//	Words words = new Words("C:\\Users\\Baek Seung Chan\\Desktop\\2016ë…„ 3í•™ë…„ 1í•™ê¸°\\ê°ì²´ì§€í–¥ì–¸ì–´2\\ë¯¸ë‹ˆí”„ë¡œì íŠ¸\\words.txt"); // ë‹¨ì–´ ì„ íƒí•˜ëŠ” ê°ì²´ ìƒì„±
+	//	Scanner scanner = new Scanner(System.in);
+	//	String newWord;
+	//	while(true) {
+	//		newWord = words.getRandomWord(); // ëœë¤í•œ ë‹¨ì–´ ì„ íƒ
+	//		if(newWord == null) break; // ë‹¨ì–´ ì„ íƒì— ë¬¸ì œê°€ ìˆëŠ” ê²½ìš° í”„ë¡œê·¸ë¨ ì¢…ë£Œ
+	//		String answer = scanner.next();
+	//		if(answer.equals("n")) // nì„ ì…ë ¥í•˜ë©´ ì¢…ë£Œ
+	//			break;
+	//	}
+	//	
+	//	getContentPane().add(new JLabel("newWord"));
+
+
+//words.txt íŒŒì¼ì„ ì½ê³  íŒŒì¼ì—ì„œ ëœë¤í•˜ê²Œ ë‹¨ì–´ë¥¼ ì¶”ì¶œí•˜ëŠ” í´ë˜ìŠ¤
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -6,43 +21,43 @@ import java.io.IOException;
 import java.util.Random;
 
 class Words {
-	final int WORDMAX = 25143; // words.txtÆÄÀÏ¿¡ µé¾î ÀÖ´Â ÃÑ ´Ü¾îÀÇ °³¼ö
-	private String fileName; // ´Ü¾î ÆÄÀÏ ÀÌ¸§. ÇöÀç´Â words.txt
-	private Random r = new Random(); // ³­¼ö ¹ß»ı±â
+	final int WORDMAX = 25143; // words.txtíŒŒì¼ì— ë“¤ì–´ ìˆëŠ” ì´ ë‹¨ì–´ì˜ ê°œìˆ˜
+	private String fileName; // ë‹¨ì–´ íŒŒì¼ ì´ë¦„. í˜„ì¬ëŠ” words.txt
+	private Random r = new Random(); // ë‚œìˆ˜ ë°œìƒê¸°
 	
 	public Words(String fileName) {
 		this.fileName = fileName;
 	}
 	
 	public String getRandomWord() {
-		// ÆÄÀÏÀ» ÀĞ±â À§ÇÑ BufferedReader °´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+		// íŒŒì¼ì„ ì½ê¸° ìœ„í•œ BufferedReader ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 		BufferedReader in = null;		
 		try {
-			// ÆÄÀÏÀ» ¿­°í ÆÄÀÏÀ» ÀĞ±â À§ÇÑ BufferedReader °´Ã¼ »ı¼º
+			// íŒŒì¼ì„ ì—´ê³  íŒŒì¼ì„ ì½ê¸° ìœ„í•œ BufferedReader ê°ì²´ ìƒì„±
 			in = new BufferedReader(new FileReader(fileName));
 		}
 		catch(FileNotFoundException e) {
-			System.out.println("ÁöÁ¤µÈ °æ·Î¿¡ ÆÄÀÏÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("ì§€ì •ëœ ê²½ë¡œì— íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤.");
 			System.exit(0);
 		}
-		int n = r.nextInt(WORDMAX); // ·£´ıÇÑ ¶óÀÎ ¹øÈ£ »ı¼º. n ¹øÂ° ´Ü¾î¸¦ °ÔÀÓ¿¡ »ç¿ë
-		return readWord(in, n); // in ÆÄÀÏ¿¡¼­ n ¹øÂ° ¶óÀÎÀÇ ´Ü¾î¸¦ ÀĞ¾î¼­ ¸®ÅÏ
+		int n = r.nextInt(WORDMAX); // ëœë¤í•œ ë¼ì¸ ë²ˆí˜¸ ìƒì„±. n ë²ˆì§¸ ë‹¨ì–´ë¥¼ ê²Œì„ì— ì‚¬ìš©
+		return readWord(in, n); // in íŒŒì¼ì—ì„œ n ë²ˆì§¸ ë¼ì¸ì˜ ë‹¨ì–´ë¥¼ ì½ì–´ì„œ ë¦¬í„´
 	}
 	
-	// in ÆÄÀÏ¿¡¼­ n ¹øÂ° ¶óÀÎÀÇ ´Ü¾î¸¦ ÀĞ¾î ¸®ÅÏÇÏ´Â ¸Ş¼Òµå
+	// in íŒŒì¼ì—ì„œ n ë²ˆì§¸ ë¼ì¸ì˜ ë‹¨ì–´ë¥¼ ì½ì–´ ë¦¬í„´í•˜ëŠ” ë©”ì†Œë“œ
 	private String readWord(BufferedReader in, int n) {
-		String line=null; // ÇÑ ¶óÀÎÀ» ÀúÀåÇÒ ¹®ÀÚ¿­ °´Ã¼. ÇÑ ¶óÀÎ¿¡´Â ÇÏ³ªÀÇ ´Ü¾î¸¸ ÀÖÀ½
+		String line=null; // í•œ ë¼ì¸ì„ ì €ì¥í•  ë¬¸ìì—´ ê°ì²´. í•œ ë¼ì¸ì—ëŠ” í•˜ë‚˜ì˜ ë‹¨ì–´ë§Œ ìˆìŒ
         try {
 			while (n>0) {
-				line = in.readLine(); // ÆÄÀÏ¿¡¼­ ÇÑ ¶óÀÎ(ÇÑ ´Ü¾î)¸¦ ÀĞ´Â´Ù.
-				if(line == null) // eof¸¦ ¸¸³ª¸é ¹®Á¦ ¹ß»ı. ·çÇÁ Á¾·á
+				line = in.readLine(); // íŒŒì¼ì—ì„œ í•œ ë¼ì¸(í•œ ë‹¨ì–´)ë¥¼ ì½ëŠ”ë‹¤.
+				if(line == null) // eofë¥¼ ë§Œë‚˜ë©´ ë¬¸ì œ ë°œìƒ. ë£¨í”„ ì¢…ë£Œ
 					break;
 				n--;
 			}
 		} catch (IOException e) {
 			System.exit(0);
 		}
-		return line; // n ¹øÂ° ¶óÀÎÀÇ ´Ü¾î ¸®ÅÏ
+		return line; // n ë²ˆì§¸ ë¼ì¸ì˜ ë‹¨ì–´ ë¦¬í„´
 	}
 }
 
