@@ -1,18 +1,3 @@
-//line2 ~ line13 까지 코드를 TypingGame.java에 넣고싶은데 안되네..
-	//	Words words = new Words("C:\\Users\\Baek Seung Chan\\Desktop\\2016년 3학년 1학기\\객체지향언어2\\미니프로젝트\\words.txt"); // 단어 선택하는 객체 생성
-	//	Scanner scanner = new Scanner(System.in);
-	//	String newWord;
-	//	while(true) {
-	//		newWord = words.getRandomWord(); // 랜덤한 단어 선택
-	//		if(newWord == null) break; // 단어 선택에 문제가 있는 경우 프로그램 종료
-	//		String answer = scanner.next();
-	//		if(answer.equals("n")) // n을 입력하면 종료
-	//			break;
-	//	}
-	//	
-	//	getContentPane().add(new JLabel("newWord"));
-
-
 //words.txt 파일을 읽고 파일에서 랜덤하게 단어를 추출하는 클래스
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
