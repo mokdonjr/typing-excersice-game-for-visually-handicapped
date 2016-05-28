@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -7,79 +8,110 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Scanner;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
+import javax.swing.WindowConstants;
 
+//JFrameí´ë˜ìŠ¤
 public class TypingGame extends JFrame implements ActionListener {
 	private MenuPane menu;
 	private JToolBar tool;
-	Reader rd = new Reader();
-
-	public TypingGame() {
-
-		this.setTitle("Å¸ÀÌÇÎ °ÔÀÓ");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(600,600);
-		setLocation(100,100);
-		menu = new MenuPane();
-		
-		
-		this.setJMenuBar(menu);
-		
-		JSplitPane sPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		getContentPane().add(sPane, BorderLayout.CENTER);
 	
-		sPane.setLeftComponent(new MPanel());
-		sPane.setRightComponent(new SPanel());
-		sPane.setDividerLocation(400);
-		sPane.setEnabled(false);
-		//Container con= getContentPane();//ÄÁÅ×ÀÌ³Ê..!
-		//con.setBackground(Color.WHITE);
-		//con.setLayout(new FlowLayout());
-		
-		
-		//con.add(tool, BorderLayout.NORTH);
-		sPane.setEnabled(false);
+	Reader rd = new Reader();
+	TypingData data = new TypingData();
+	
+	public TypingGame() {
+		//1.ê¸°ë³¸ì„¤ì •
+		this.setTitle("íƒ€ì´í•‘ ê²Œì„");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(1200,760);
+		setLocation(100,100);
+		//2.MenuBar
+		menu = new MenuPane();
+		this.setJMenuBar(menu);
+		//3. ToolBar ( 5ì›”25ì¼. ToolBar ë‚´ì— JSlider ì¶”ê°€ )
 		makeToolBar();
-		//getContentPane().add(new InputPanel(),BorderLayout.SOUTH);
+		//4. MPanelê³¼ SPanelë¡œ ìª¼ê°¬
+		JSplitPane sPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		Container container = getContentPane();
+		container.add(sPane, BorderLayout.CENTER);
+		sPane.setRightComponent(new SPanel());
+		sPane.setLeftComponent(new MPanel());
+		sPane.setDividerLocation(800);
+		sPane.setEnabled(false);
+		
 		setVisible(true);
-		
-		
+
+		//5. ë¦¬ìŠ¤ë„ˆ
 		this.addWindowListener(new WindowAdapter(){
 			public void windowClosing(WindowEvent e){
-				int result=JOptionPane.showConfirmDialog(TypingGame.this,"ÆÄÀÏÀ» ÀúÀåÇÏ½Ã°Ú½À´Ï±î","Exit Massage",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
-
-				if(result==JOptionPane.YES_OPTION){
-					rd.save();
-					rd.fileWrite();
-					System.exit(0);
-				}
-				else if(result==JOptionPane.NO_OPTION){
-					System.exit(0);
-				}
-				else if(result==JOptionPane.DEFAULT_OPTION){
-
-				}
+	            int result=JOptionPane.showConfirmDialog(TypingGame.this,"íŒŒì¼ì„ ì €ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ","Exit Massage",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+	            //int i=0;
+	            if(result==JOptionPane.YES_OPTION){
+	               System.out.println("YES_OPTION ë™ì‘");
+	               rd.save();
+	               rd.fileWrite();
+	               
+	               //i++;
+	            }
+	            else if(result==JOptionPane.NO_OPTION){
+	               System.out.println("No_OPTION ë™ì‘");
+	               System.exit(0);
+	            }
+	            else if(result==JOptionPane.CANCEL_OPTION) {
+	               System.out.println("CANCEL_OPTION ë™ì‘");
+	               setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	            }
+	            else if(result==JOptionPane.DEFAULT_OPTION){//xë²„íŠ¼ì„ ëˆŒë €ì„ë–„..
+	               System.out.println("DEFAULT_OPTION ë™ì‘");
+	               setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	            }   
+	            //if(i==1) System.exit(0);
 			}
-		});
+	            
+
+			});
 	}
 
 	private void makeToolBar() {
-		System.out.println("ToolBar ½ÇÇà");
+		System.out.println("ToolBar ì‹¤í–‰");
 		JToolBar tBar = new JToolBar();
-		tBar.add(new JButton("´Ù½Ã½ÃÀÛ"));
+		tBar.add(new JButton("ë‹¤ì‹œì‹œì‘"));
 		tBar.addSeparator(new Dimension(50,20));
-		tBar.add(new JButton("?????"));
+		tBar.add(new JButton("íƒ€ì´í•‘ìŠµì„±ë¶„ì„"));
 		tBar.addSeparator(new Dimension(50,20));
-		tBar.add(new JButton("³¡³»±â"));
+		tBar.add(new JButton("ëë‚´ê¸°"));
 		tBar.addSeparator(new Dimension(50,20));
+		/*
+		 * 5ì›” 25ì¼ ìŠ¹ì°¬
+		 * 
+		 * ToolBarì— JSliderì¶”ê°€
+		 * ëª©ì  : ë³¼ë¥¨ì¡°ì ˆ
+		 * ToolBarë©”ì†Œë“œì— ìœ„ì¹˜í•œ ì´ìœ  : ë”±íˆ ë‘˜ëŒ€ê°€ ì—†ëŠ”ë° ToolBar ìš°ì¸¡ ë¹„ì–´ìˆëŠ” ê³µê°„ì— ìˆìœ¼ë©´ ì¢‹ì„ ê²ƒ ê°™ë‹¤.
+		 */
+		JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 200, 100);
+		slider.setPaintLabels(true);
+		slider.setPaintTicks(true);
+		slider.setPaintTrack(true);
+		slider.setMajorTickSpacing(50);
+		slider.setMajorTickSpacing(10);
+		slider.setSize(200,20);
+		tBar.add(slider);
+		
 		getContentPane().add(tBar, BorderLayout.NORTH);
 		
 	}
+
+	
+
 
 	public void event(){
 		menu.getExitM().addActionListener(this);
@@ -90,34 +122,38 @@ public class TypingGame extends JFrame implements ActionListener {
 		menu.getMakerM().addActionListener(this);
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {//actionListenerÀÇ actionPerformed ¸¦ ¿À¹ö¶óÀÌµå·Î Àç±¸ÇöÇß´Ù.
-		if(e.getSource()==menu.getExitM()){//¸Ş¼¼Áö ¹Ú½º ÈÄ yes ¸é Á¾·á but NoÀÏ ½Ã °è¼Ó break;
+	public void actionPerformed(ActionEvent e) {//actionListenerì˜ actionPerformed ë¥¼ ì˜¤ë²„ë¼ì´ë“œë¡œ ì¬êµ¬í˜„í–ˆë‹¤.
+		if(e.getSource()==menu.getExitM()){//ë©”ì„¸ì§€ ë°•ìŠ¤ í›„ yes ë©´ ì¢…ë£Œ but Noì¼ ì‹œ ê³„ì† break;
 			//int result=0;
-			JOptionPane.showMessageDialog(null, "º¯°æ³»¿ëÀ» ÀúÀåÇÏ½Ã°Ú½À´Ï±î?");
+			JOptionPane.showMessageDialog(null, "ë³€ê²½ë‚´ìš©ì„ ì €ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
 
-			//QUESTION_MESSAGE(,"°ÔÀ½À» ÀúÀåÇÏ½Ã°Ú½À´Ï±î?");
-			//System.exit(0);//ÆÄÀÏ ´İ±â
+			//QUESTION_MESSAGE(,"ê²ŒìŒì„ ì €ì¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
+			//System.exit(0);//íŒŒì¼ ë‹«ê¸°
 			/*
-			 * if yes¸é saveÈ£Ãâ·Î ÀúÀå
-			 * if no ¸é  System.exit(0);
+			 * if yesë©´ saveí˜¸ì¶œë¡œ ì €ì¥
+			 * if no ë©´  System.exit(0);
 			 * 
 			 */
 
 		}
 		else if(e.getSource()==menu.getOpenM()){
 
-			rd.open();//open();//¿­±â ´ÙÀÌ¾ó·Î±×
-			//ÆÄÀÏ ÀĞ±â
+			rd.open();//open();//ì—´ê¸° ë‹¤ì´ì–¼ë¡œê·¸
+			//íŒŒì¼ ì½ê¸°
 		}
 		else if(e.getSource()==menu.getSaveM()){
 
 		}
-		else if(e.getSource()==menu.getNewM()){//´Ù½Ã ½ÃÀÛ
+		else if(e.getSource()==menu.getNewM()){//ë‹¤ì‹œ ì‹œì‘
 
 			/*this.setVisible(true);
-			System.out.println("´Ù½Ã ½ÃÀÛ");*/
+			System.out.println("ë‹¤ì‹œ ì‹œì‘");*/
 		}
 
 
 	}
+	
+	
+	
 }
+
