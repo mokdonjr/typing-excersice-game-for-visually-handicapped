@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -29,11 +28,15 @@ public class TypingGame extends JFrame implements ActionListener {
 	TypingData data = new TypingData();
 	
 	public TypingGame() {
+		//0. 게임 실행 시 게임 안내 음성재생
+		TextToSpeech.textToSpeech("Start Typing Excersicing Program for visually handicapped");
+		
 		//1.기본설정
 		this.setTitle("타이핑 게임");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1200,760);
 		setLocation(100,100);
+		
 		//2.MenuBar
 		menu = new MenuPane();
 		this.setJMenuBar(menu);
@@ -109,10 +112,7 @@ public class TypingGame extends JFrame implements ActionListener {
 		getContentPane().add(tBar, BorderLayout.NORTH);
 		
 	}
-
 	
-
-
 	public void event(){
 		menu.getExitM().addActionListener(this);
 		menu.getOpenM().addActionListener(this);
@@ -134,10 +134,8 @@ public class TypingGame extends JFrame implements ActionListener {
 			 * if no 면  System.exit(0);
 			 * 
 			 */
-
 		}
 		else if(e.getSource()==menu.getOpenM()){
-
 			rd.open();//open();//열기 다이얼로그
 			//파일 읽기
 		}
@@ -145,15 +143,8 @@ public class TypingGame extends JFrame implements ActionListener {
 
 		}
 		else if(e.getSource()==menu.getNewM()){//다시 시작
-
 			/*this.setVisible(true);
 			System.out.println("다시 시작");*/
 		}
-
-
 	}
-	
-	
-	
 }
-
