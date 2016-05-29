@@ -1,4 +1,3 @@
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
@@ -17,15 +18,8 @@ import javax.swing.JToolBar;
 
 public class MPanel extends JPanel {//mainpanel
 	
-	public void displayWords(String word){
-		JLabel displayWord = new JLabel(word);
-		displayWord.setLayout(null);
-		displayWord.setLocation(350,280);
-		displayWord.setSize(200,50);
-		displayWord.setFont(new Font("휴먼편지체",Font.PLAIN,30));
-		add(displayWord);
-	}
-
+	public static JLabel displayWord;
+	
 	public MPanel() {
 		setBackground(Color.gray);
 		
@@ -34,7 +28,12 @@ public class MPanel extends JPanel {//mainpanel
 		 * SPanel.getWordBook()[0]를 화면에 출력
 		 * 
 		 */
-		displayWords(SPanel.getWordBook()[0]);
+		displayWord = new JLabel(SPanel.getWordBook(0));
+		displayWord.setLayout(null);
+		displayWord.setLocation(350,280);
+		displayWord.setSize(200,50);
+		displayWord.setFont(new Font("휴먼편지체",Font.PLAIN,30));
+		add(displayWord);
 		
 		/*
 		 * 0. MPanel 아래에 InputPanel
@@ -50,7 +49,6 @@ public class MPanel extends JPanel {//mainpanel
 		inputpanel.setLocation(0,600);
 		add(inputpanel);
 		
-		
 		/* 2. MPanel 배경 이미지
 		 * 
 		 * 목표 : MPanel에 배경이미지를 깔고, 그 위에 단어가 나타나게 하자.
@@ -62,18 +60,16 @@ public class MPanel extends JPanel {//mainpanel
 		 */
 		setLayout(null);
 		//맨아래2번째이미지
-		ImageIcon image2 = new ImageIcon("C:\\백승찬박정석\\layer위.png");
+		ImageIcon image2 = new ImageIcon("layer위.png");
 		JLabel label2 = new JLabel(image2);
 		label2.setSize(800,600);
 		label2.setLocation(0,0);
 		add(label2);
 		//맨아래이미지
-		ImageIcon image1 = new ImageIcon("C:\\백승찬박정석\\layer1.gif");
+		ImageIcon image1 = new ImageIcon("layer1.gif");
 		JLabel label1 = new JLabel(image1);
 		label1.setSize(800,600);
 		label1.setLocation(0,0);
 		add(label1);
 	}
-	
-	
 }
