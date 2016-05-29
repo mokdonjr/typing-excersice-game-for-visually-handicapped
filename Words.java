@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
-class Words {
+public class Words {
 	final int WORDMAX = 25143; // words.txt파일에 들어 있는 총 단어의 개수
 	private String fileName; // 단어 파일 이름. 현재는 words.txt
 	private Random r = new Random(); // 난수 발생기
@@ -42,7 +42,6 @@ class Words {
 		} catch (IOException e) {
 			System.exit(0);
 		}
-		return line; // n 번째 라인의 단어 리턴
+		return line.toLowerCase(); // n 번째 라인의 단어 리턴(소문자로 통일!)
 	}
 }
-
