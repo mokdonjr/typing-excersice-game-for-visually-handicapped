@@ -1,4 +1,3 @@
-package 백승찬박정석;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
