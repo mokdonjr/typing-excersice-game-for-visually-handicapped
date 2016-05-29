@@ -1,7 +1,7 @@
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -30,7 +30,6 @@ public class InputPanel extends JPanel{
 		enter.setBackground(new Color(255,255,255));
 		add(enter);
 		
-		
 		/* 이벤트 리스너 작성
 		 * 
 		 * 5월 28일 PM03:10 승찬
@@ -48,46 +47,50 @@ public class InputPanel extends JPanel{
 		 * 위 사항을 숙지하여 아래 ActionListener 리스너 인터페이스를 구현하고 
 		 * 추상메소드 void actionPerformed(ActionEvent); 구현하시오
 		 */
-		//1. 이벤트소스와 이벤트리스너 연결
+		//이벤트소스와 이벤트리스너 연결
 		MyKeyListener listener = new MyKeyListener();
 		input.addKeyListener(listener);
 		input.requestFocus();
-//		input.setFocusable(true);
-		
 		}
-	//2. 이벤트소스(JTextField의 input객체)에서 발생한 이벤트(ActionEvent의 e객체)를 처리하는 Event Listener클래스
-//	class MyActionListener implements ActionListener{
-//		public void actionPerformed(ActionEvent e){
-//			JTextField input = (JTextField)e.getSource();
-//			
-//			if( input.getInputContext().equals( SPanel.getWordBook()[0] ) ){
-//				SPanel.getWordBook()[0] = SPanel.getWordBook()[1];
-//			}
-//		}
-//	}
-	
-	class MyKeyListener implements KeyListener{
 
+	class MyKeyListener implements KeyListener{
+		@Override
+		public void keyReleased(KeyEvent arg0) {}
+		@Override
+		public void keyTyped(KeyEvent arg0) {}
+		
+		/*
+		 * input의 텍스트가 화면의 단어와 맞을 경우
+		 * 화면의 단어 사라지고 wordBook의 두번째 단어가 화면에 출력
+		 * input창은 비어진다
+		 */
 		@Override
 		public void keyPressed(KeyEvent arg0) {
-			for(int i=0; i<SPanel.getWordBook().length; i++){
-//				if(input.getText() == SPanel.getWordBook()[i])
-//					SPanel.
+			if(arg0.getKeyCode() == KeyEvent.VK_ENTER){//(input에 입력된 상태로)엔터키를 누르면
+				if( input.getText().equals(SPanel.wordBook.get(0)) ){//맞았을 경우
+					//1. 맞은단어 상쇄
+					SPanel.wordBook.remove(0);
+					input.setText("");
+					System.out.println("input.getText() >> " + input.getText());
+					
+					//2. (MPanel) 맞은단어 상쇄되며 다음단어 보여줌
+					MPanel.displayWord.setText(SPanel.wordBook.get(0));//됏다... 기념시각 2016-05-29 오후7시40분
+
+					//3. (SPanel) 맞출때마다 맨 뒤에 단어 계속 추가
+					SPanel.wordBook.add(SPanel.num-1, SPanel.randomWords());
+
+					//4. (SPanel) 맞은단어 상쇄되며 다음단어 맨앞, 추가된단어 맨뒤 보여줌
+					for(int i=0; i<SPanel.wordBook.size(); i++){
+						SPanel.displayWord[i].setText(SPanel.getWordBook(i));//됏다... 기념시각 2016-05-29 오후9시08분
+					}
+//					TextToSpeech.textToSpeech(SPanel.getWordBook(0));//음성으로 읽어준다.
+				}
+				else{//틀렸을 경우
+//					TextToSpeech.textToSpeech("You writed" + input.getText());//음성으로 읽어준다.
+					System.out.println(SPanel.wordBook.size());
+					System.out.println(input.getText());//틀린단어
+				}
 			}
 		}
-
-		@Override
-		public void keyReleased(KeyEvent arg0) {
-			
-		}
-
-		@Override
-		public void keyTyped(KeyEvent arg0) {
-			
-		}
-		
 	}
-	
-	
-	
 }
